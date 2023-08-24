@@ -107,20 +107,30 @@ let emotesData = [
         type: "action"
     },
 ]
-
+const pressState = (id) => {
+    document.querySelector(`#emote${id}`).classList.add('display');
+    emotesData.map((emote) => {
+        if(emote.id !== id){
+            document.querySelector(`#emote${emote.id}`).classList.remove('display');
+        }
+    })
+}
+const removeState = (id) => {
+    document.querySelector(`#emote${id}`).classList.remove('display');
+}
 const pushEmotes = (data) => {
     document.querySelector('.emotes').innerHTML = "";
     data.map((item) => {
         const {id, imageUrl} = item;
         document.querySelector('.emotes').innerHTML += `
-        <div class='emote'>
+        <div class='emote' id="emote${id}" onmousedown="pressState(${id})">
             <img src=${imageUrl} />
+            <span class="pressState"></span>
         </div>
         `
     })
 }
 pushEmotes(emotesData)
-
 categories.map((category) => {
     const {name, tab} = category
     tab.addEventListener('click', () => {
@@ -138,7 +148,3 @@ categories.map((category) => {
         })
     })
 })
-
-const selectCategory = (category) => {
-    
-}
