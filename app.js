@@ -124,7 +124,7 @@ const pushEmotes = (data) => {
         const {id, imageUrl} = item;
         document.querySelector('.emotes').innerHTML += `
         <div class='emote' id="emote${id}" onmousedown="pressState(${id})">
-            <img src=${imageUrl} />
+            <img src=${imageUrl} alt="emote" draggable="true" class="emote-image"/>
             <span class="pressState"></span>
         </div>
         `
@@ -149,3 +149,22 @@ categories.map((category) => {
     })
 })
 // RADIAL MENU
+const emotes = document.querySelectorAll('.emote-image');
+const dropboxes = document.querySelectorAll('.dropbox');
+dropboxes.forEach(dropbox => {
+    dropbox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        console.log(document.querySelector('.dragged'))
+        dropbox.appendChild(document.querySelector('.dragged'))
+    })
+})
+emotes.forEach(emote => {
+    emote.addEventListener('dragstart', () => {
+        emote.classList.add('dragged')
+    })
+})
+emotes.forEach(emote => {
+    emote.addEventListener('dragend', () => {
+        // emote.classList.remove('dragged')
+    })
+})
