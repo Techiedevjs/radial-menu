@@ -98,9 +98,6 @@ body{
     max-height: 80vh;
     justify-content: space-between;
 }
-.character{
-    /* flex: 0.7; */
-}
 .character div{
   height: 100%;
   width: 100%;
@@ -123,9 +120,6 @@ body{
     letter-spacing: 4.8px;
     text-shadow: 0px 0px 88px rgba(255, 255, 255, 0.15);
     font-size: var(--fontxl);
-}
-.categories{
-    
 }
 .categories .category{
     flex: 1;
@@ -206,6 +200,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
   .outer {
     position: relative;
@@ -248,9 +243,6 @@ body{
     letter-spacing: 0.48px;
     font-size: var(--fontsmall);
     font-family: 'Barlow', sans-serif;
-}
-.dragged{
-    /* background-color: black !important; */
 }
 .line {
     position: absolute;
@@ -306,6 +298,7 @@ body{
     justify-content: center;
     align-items: center;
     width: 10vw;
+    transition: .3s ease all;
 }
 .abs1{
     transform: rotate(-135deg) translate(14%, 10%);
@@ -317,7 +310,7 @@ body{
     transform: rotate(-225deg) translate(-11%,17%);
 }
 .abs4{
-    transform: rotate(-270deg) translate(2%, -5%);
+    transform: rotate(-270deg) translate(2%, -4%);
 }
 .abs5{
     transform: rotate(-315deg) translate(-15%, -9%);
@@ -330,6 +323,34 @@ body{
 }
 .abs8{
     transform: rotate(-90deg) translate(-3%, 5%);
+}
+.dropenter img path{
+    fill: black;
+}
+/* DRAG LEAVES RADIAL  MENU*/
+.line1 .dropenter{
+    transform: rotate(-135deg) translate(16% , 2%);
+}
+.line2 .dropenter{
+    transform: rotate(-180deg) translate(5%, -5%);
+}
+.line3 .dropenter{
+    transform: rotate(-225deg) translate(-4%,20%);
+}
+.line4 .dropenter{
+    transform: rotate(-270deg) translate(5%, 2%);
+}
+.line5 .dropenter{
+    transform: rotate(-315deg) translate(-18%, -2%);
+}
+.line6 .dropenter{
+    transform: rotate(0deg) translate(-3%, 3%);
+}
+.line7 .dropenter{
+    transform: rotate(-45deg) translate(5%,-20%);
+}
+.line8 .dropenter{
+    transform: rotate(-90deg) translate(-7%, -5%);
 }
 .line1 .emote{
     transform: rotate(-135deg);
@@ -355,14 +376,159 @@ body{
 .line8 .emote{
     transform: rotate(-95deg);
 }
-.dropbox{
-    /* width: 80%; */
-    /* height: 10px;
-    background-color: white;
-    position: absolute;
-    right: 0;
-    transform: rotate(270deg); */
-}
-.dropbox1{
 
-}
+@media screen and (max-width: 4000px) {
+    body {
+      --scale: 1.5;
+    }
+  }
+  
+  @media screen and (max-width: 3000px) {
+    body {
+      --scale: 1.4;
+    }
+  }
+  
+  @media screen and (max-width: 2560px) {
+    body {
+      --scale: 1.3;
+    }
+  }
+  
+  @media screen and (max-width: 2100px) {
+    body {
+      --scale: 1.2;
+    }
+  }
+  
+  @media screen and (max-width: 2020px) {
+    body {
+      --scale: 1;
+    }
+  }
+  
+  @media screen and (max-width: 1520px) {
+    body {
+      --scale: 0.9;
+    }
+  
+    .vehicleshop>.info {
+      transform: scale(0.7);
+    }
+  }
+  
+  @media screen and (max-width: 1324px) {
+    body {
+      --scale: 0.87;
+    }
+  }
+  
+  @media screen and (max-width: 1124px) {
+    body {
+      --scale: 0.8;
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    body {
+      --scale: 0.7;
+    }
+  }
+  
+  @media screen and (max-width: 900px) {
+    body {
+      --scale: 0.6;
+    }
+  }
+  
+  @media screen and (max-width: 800px) {
+    body {
+      --scale: 0.5;
+    }
+  }
+  .origen {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%) scale(calc(var(--scale) * 0.6));
+    opacity: 0;
+    transition: ease-in .25s;
+    pointer-events: none;
+  }
+  .origen .quick-select {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Outfit", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+  }
+  
+  .origen .lado {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 170px;
+    aspect-ratio: 1/1;
+    /* border-radius: 2000px; */
+    /* background-color: red; */
+  }
+  
+  .origen .lado>div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: scale(.8);
+    transition: ease-in .25s;
+  }
+  .origen .lado>div .lado-bg {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1.19) rotate(-29deg);
+    width: 170px;
+    height: 170px;
+    transition: all .2s;
+    z-index: -3;
+  
+  }
+  .origen .lado:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(45deg) translate(0, -100%);
+  }
+  
+  .origen .lado:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(90deg) translate(0, -100%);
+  }
+  
+  .origen .lado:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(135deg) translate(0, -100%);
+  }
+  
+  .origen .lado:nth-child(4) {
+    transform: translate(-50%, -50%) rotate(180deg) translate(0, -100%);
+  }
+  
+  .origen .lado:nth-child(5) {
+    transform: translate(-50%, -50%) rotate(225deg) translate(0, -100%);
+  }
+  
+  .origen .lado:nth-child(6) {
+    transform: translate(-50%, -50%) rotate(270deg) translate(0, -100%);
+  }
+  
+  .origen .lado:nth-child(7) {
+    transform: translate(-50%, -50%) rotate(315deg) translate(0, -100%);
+  }
+  
+  .origen .lado:nth-child(8) {
+    transform: translate(-50%, -50%) rotate(0deg) translate(0, -100%);
+  }
