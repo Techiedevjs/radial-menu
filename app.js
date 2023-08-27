@@ -141,28 +141,59 @@ categories.map((category) => {
     })
 })
 // RADIAL MENU
-let emotes = document.querySelectorAll('.emote-image');
 const dropboxes = document.querySelectorAll('.line');
 dropboxes.forEach(dropbox => {
     dropbox.addEventListener('dragover', (e) => {
         e.preventDefault();
-        dropbox.appendChild(document.querySelector('.dragged'))
+    })
+    dropbox.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropbox.firstElementChild.classList.remove('dropenter')
+    })
+    dropbox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if(dropbox.childElementCount < 2 ){
+            dropbox.appendChild(document.querySelector('.dragged'))
+            dropbox.firstElementChild.classList.remove('dropenter')
+            console.log(dropbox.childElementCount)
+        }
+    })
+    dropbox.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        if(dropbox.childElementCount < 2 ){  
+            dropbox.firstElementChild.classList.add('dropenter')
+        }
     })
 })
-// emotes.forEach(emote => {
-//     emote.addEventListener('dragstart', () => {
-//         emote.classList.add('dragged')
-//         console.log(document.querySelector('.dragged'))
-//     })
-// })
 const dragEmote = (id) => {
     document.querySelector(`#emote${id}`).classList.add('dragged')
 }
 const dragEmoteEnd = (id) => {
     document.querySelector(`#emote${id}`).classList.remove('dragged')
 }
-// emotes.forEach(emote => {
-//     emote.addEventListener('dragend', () => {
-//         emote.classList.remove('dragged')
-//     })
-// })
+
+
+const toggleMenu = (state, options) => {
+    var body = document.body;
+    var origen = body.querySelector('.origen');
+    var ladoDiv = origen.querySelector('.lado>div');
+    // var newOptions = JSON.parse(options);
+    if (state == true) {
+    //   setItems(options);
+    //   wheel.classList.add('active');
+  
+      origen.style.transform = 'translate(-50%, -50%) scale(var(--scale))';
+      origen.style.opacity = '1';
+      // ladoDiv.style.transform = 'scale(1)';
+  
+      console.log("?")
+    } else {
+      // Events.Call("ExecuteFunctionality", optionSelected)
+    //   wheel.classList.remove('active');
+  
+      origen.style.transform = '';
+      origen.style.opacity = '';
+      ladoDiv.style.transform = '';
+    }
+  }
+//   toggleMenu(true)
