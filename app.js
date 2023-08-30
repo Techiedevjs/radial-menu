@@ -16,8 +16,18 @@ let categories = [
 // PUSH EMOTES
 let emotesData = [
     {
+        id: 1,
+        imageUrl: "images/T_emotes1.svg",
+        type: "dance"
+    },
+    {
+        id: 2,
+        imageUrl: "images/T_emotes2.svg",
+        type: "action"
+    },
+    {
         id: 3,
-        imageUrl: "images/Vector.svg",
+        imageUrl: "images/T_emotes3.svg",
         type: "dance"
     },
     {
@@ -83,11 +93,17 @@ let emotesData = [
     {
         id: 16,
         imageUrl: "images/T_emotes16.svg",
-        type: "action"
-    },{
+        type: "dance"
+    },
+    {
         id: 17,
         imageUrl: "images/T_emotes17.svg",
         type: "action"
+    },
+    {
+        id: 18,
+        imageUrl: "images/T_emotes18.svg",
+        type: "dance"
     },
 ]
 const pressState = (id) => {
@@ -141,6 +157,16 @@ categories.map((category) => {
     })
 })
 // RADIAL MENU
+let selectedEmotes = {
+    1: '',
+    2: '',
+    3: '',
+    4: '',
+    5: '',
+    6: '',
+    7: '',
+    8: ''
+}
 const dropboxes = document.querySelectorAll('.line');
 dropboxes.forEach((dropbox, index) => {
     dropbox.addEventListener('dragover', (e) => {
@@ -155,11 +181,18 @@ dropboxes.forEach((dropbox, index) => {
         e.preventDefault();
         const copyData = e.dataTransfer.getData("text/plain");
         if (copyData === "copy") {
-            const copy = document.querySelector('.dragged').cloneNode(true); // Clone the source element
+            const copy = document.querySelector('.dragged').cloneNode(true);
             if(dropbox.childElementCount < 2 ){
                 dropbox.appendChild(copy)
+                selectedEmotes[dropbox.id] = document.querySelector('.dragged').id
                 dropbox.firstElementChild.classList.remove('dropenter')
                 dropbox.firstElementChild.src = `images/${index+1}.svg`
+                console.log(selectedEmotes)
+            } else if(dropbox.childElementCount > 1){
+                dropbox.removeChild(dropbox.lastElementChild);
+                dropbox.appendChild(copy)
+                selectedEmotes[dropbox.id] = document.querySelector('.dragged').id
+                console.log(selectedEmotes)
             }
         }
     })
@@ -178,29 +211,3 @@ const dragEmote = (event,id) => {
 const dragEmoteEnd = (id) => {
     document.querySelector(`#emote${id}`).classList.remove('dragged')
 }
-
-
-const toggleMenu = (state, options) => {
-    var body = document.body;
-    var origen = body.querySelector('.origen');
-    var ladoDiv = origen.querySelector('.lado>div');
-    // var newOptions = JSON.parse(options);
-    if (state == true) {
-    //   setItems(options);
-    //   wheel.classList.add('active');
-  
-      origen.style.transform = 'translate(-50%, -50%) scale(var(--scale))';
-      origen.style.opacity = '1';
-      // ladoDiv.style.transform = 'scale(1)';
-  
-      console.log("?")
-    } else {
-      // Events.Call("ExecuteFunctionality", optionSelected)
-    //   wheel.classList.remove('active');
-  
-      origen.style.transform = '';
-      origen.style.opacity = '';
-      ladoDiv.style.transform = '';
-    }
-  }
-  toggleMenu(true)
