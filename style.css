@@ -152,7 +152,7 @@ body{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.emotes{
+.emotes, .all-emotes, .dance-emotes, .actions-emotes{
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: calc(0.5 * var(--gap));
@@ -185,6 +185,9 @@ body{
     border-radius: 8px 8px 0px 0px;
     background: #00D9B2;
 }
+.display svg, .display img{
+    opacity: 1 !important;
+}
 .display:hover{
     background-color: rgba(35, 147, 125, 0.5);
 }
@@ -194,9 +197,10 @@ body{
 }
 .emote:hover img{
 }
-.emote img{
+.emote img,.emote svg{
     height: 85%;
-    filter: grayscale(1);
+    opacity: 0.5;
+    /* filter: grayscale(1); */
 }
 /* RADIAL MENU STYLING */
 .radial-menu{
