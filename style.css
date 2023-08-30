@@ -192,8 +192,11 @@ body{
     border: 1px solid rgba(35, 147, 125, 0.25);
     background: rgba(0, 217, 178, 0.20) ;
 }
+.emote:hover img{
+}
 .emote img{
     height: 85%;
+    filter: grayscale(1);
 }
 /* RADIAL MENU STYLING */
 .radial-menu{
@@ -204,7 +207,7 @@ body{
 }
   .outer {
     position: relative;
-    width: 30vw;
+    width: 29.53125vw;
     aspect-ratio: 1/1;
   }
   .mid {
@@ -301,56 +304,72 @@ body{
     transition: .3s ease all;
 }
 .abs1{
-    transform: rotate(-135deg) translate(14%, 10%);
+    transform: rotate(-135deg) translate(19%, 6%);
+    width: 10.37vw;
+    height: 10.05vw;
 }
 .abs2{
-    transform: rotate(-180deg) translate(-4%, 0%);
+    transform: rotate(-180deg) translate(0%, 0%);
+    width: 10.02vw;
+    height: 10.35vw;
 }
 .abs3{
-    transform: rotate(-225deg) translate(-11%,17%);
+    transform: rotate(-225deg) translate(-8%,19%);
+    width: 10.05vw;
+    height: 10.37vw;
 }
 .abs4{
-    transform: rotate(-270deg) translate(2%, -4%);
+    transform: rotate(-270deg) translate(2%, 1%);
+    width: 10.35vw;
+    height: 10.02vw;
 }
 .abs5{
-    transform: rotate(-315deg) translate(-15%, -9%);
+    transform: rotate(-315deg) translate(-19%, -6.5%);
+    width: 10.37vw;
+    height: 10.05vw;
 }
 .abs6{
-    transform: rotate(0deg) translate(3%, 0%);
+    transform: rotate(0deg) translate(0%, 0%);
+    width: 10.02vw;
+    height: 10.35vw;
 }
 .abs7{
-    transform: rotate(-45deg) translate(10%,-17%);
+    transform: rotate(-45deg) translate(8%,-19%);
+    width: 10.05vw;
+    height: 10.37vw;
 }
 .abs8{
-    transform: rotate(-90deg) translate(-3%, 5%);
+    transform: rotate(-90deg) translate(-2%, -1%);
+    width: 10.35vw;
+    height: 10.02vw;
 }
 .dropenter img path{
     fill: black;
 }
 /* DRAG LEAVES RADIAL  MENU*/
 .line1 .dropenter{
-    transform: rotate(-135deg) translate(16% , 2%);
+    transform: rotate(-135deg) translate(21% , 0%);
 }
 .line2 .dropenter{
-    transform: rotate(-180deg) translate(5%, -5%);
+    transform: rotate(-180deg) translate(6%, -3%);
 }
 .line3 .dropenter{
-    transform: rotate(-225deg) translate(-4%,20%);
+    transform: rotate(-225deg) translate(-3%,21%);
 }
 .line4 .dropenter{
-    transform: rotate(-270deg) translate(5%, 2%);
+    transform: rotate(-270deg) translate(5%, 8%);
 }
 .line5 .dropenter{
-    transform: rotate(-315deg) translate(-18%, -2%);
+    transform: rotate(-315deg) translate(-21%, 0%);
 }
 .line6 .dropenter{
-    transform: rotate(0deg) translate(-3%, 3%);
+    transform: rotate(0deg) translate(-6%, 3%);
 }
 .line7 .dropenter{
-    transform: rotate(-45deg) translate(5%,-20%);
+    transform: rotate(-45deg) translate(3%,-21%);
 }
 .line8 .dropenter{
-    transform: rotate(-90deg) translate(-7%, -5%);
+    transform: rotate(-90deg) translate(-5%, -8%);
 }
 .line1 .emote{
     transform: rotate(-135deg);
@@ -374,161 +393,5 @@ body{
     transform: rotate(-45deg);
 }
 .line8 .emote{
-    transform: rotate(-95deg);
+    transform: rotate(-90deg);
 }
-
-@media screen and (max-width: 4000px) {
-    body {
-      --scale: 1.5;
-    }
-  }
-  
-  @media screen and (max-width: 3000px) {
-    body {
-      --scale: 1.4;
-    }
-  }
-  
-  @media screen and (max-width: 2560px) {
-    body {
-      --scale: 1.3;
-    }
-  }
-  
-  @media screen and (max-width: 2100px) {
-    body {
-      --scale: 1.2;
-    }
-  }
-  
-  @media screen and (max-width: 2020px) {
-    body {
-      --scale: 1;
-    }
-  }
-  
-  @media screen and (max-width: 1520px) {
-    body {
-      --scale: 0.9;
-    }
-  
-    .vehicleshop>.info {
-      transform: scale(0.7);
-    }
-  }
-  
-  @media screen and (max-width: 1324px) {
-    body {
-      --scale: 0.87;
-    }
-  }
-  
-  @media screen and (max-width: 1124px) {
-    body {
-      --scale: 0.8;
-    }
-  }
-  
-  @media screen and (max-width: 1024px) {
-    body {
-      --scale: 0.7;
-    }
-  }
-  
-  @media screen and (max-width: 900px) {
-    body {
-      --scale: 0.6;
-    }
-  }
-  
-  @media screen and (max-width: 800px) {
-    body {
-      --scale: 0.5;
-    }
-  }
-  .origen {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translate(-50%, -50%) scale(calc(var(--scale) * 0.6));
-    opacity: 0;
-    transition: ease-in .25s;
-    pointer-events: none;
-  }
-  .origen .quick-select {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-family: "Outfit", sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
-  }
-  
-  .origen .lado {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 170px;
-    aspect-ratio: 1/1;
-    /* border-radius: 2000px; */
-    /* background-color: red; */
-  }
-  
-  .origen .lado>div {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform: scale(.8);
-    transition: ease-in .25s;
-  }
-  .origen .lado>div .lado-bg {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1.19) rotate(-29deg);
-    width: 170px;
-    height: 170px;
-    transition: all .2s;
-    z-index: -3;
-  
-  }
-  .origen .lado:nth-child(1) {
-    transform: translate(-50%, -50%) rotate(45deg) translate(0, -100%);
-  }
-  
-  .origen .lado:nth-child(2) {
-    transform: translate(-50%, -50%) rotate(90deg) translate(0, -100%);
-  }
-  
-  .origen .lado:nth-child(3) {
-    transform: translate(-50%, -50%) rotate(135deg) translate(0, -100%);
-  }
-  
-  .origen .lado:nth-child(4) {
-    transform: translate(-50%, -50%) rotate(180deg) translate(0, -100%);
-  }
-  
-  .origen .lado:nth-child(5) {
-    transform: translate(-50%, -50%) rotate(225deg) translate(0, -100%);
-  }
-  
-  .origen .lado:nth-child(6) {
-    transform: translate(-50%, -50%) rotate(270deg) translate(0, -100%);
-  }
-  
-  .origen .lado:nth-child(7) {
-    transform: translate(-50%, -50%) rotate(315deg) translate(0, -100%);
-  }
-  
-  .origen .lado:nth-child(8) {
-    transform: translate(-50%, -50%) rotate(0deg) translate(0, -100%);
-  }
