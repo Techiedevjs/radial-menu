@@ -112,7 +112,7 @@ const pushEmotes = (data) => {
     data.map((item) => {
         const {id, imageUrl} = item;
         document.querySelector('.emotes').innerHTML += `
-        <div class='emote emote-image' ondragend="dragEmoteEnd(${id})" ondragstart="dragEmote(${id})" id="emote${id}" draggable="true" onmousedown="pressState(${id})">
+        <div class='emote emote-image' ondragend="dragEmoteEnd(${id})" ondragstart="dragEmote(event,${id})" id="emote${id}" draggable="true" onmousedown="pressState(${id})">
             <img src=${imageUrl} alt="emote" draggable="false"/>
             <span class="pressState"></span>
         </div>
@@ -142,30 +142,37 @@ categories.map((category) => {
 })
 // RADIAL MENU
 const dropboxes = document.querySelectorAll('.line');
-dropboxes.forEach(dropbox => {
+dropboxes.forEach((dropbox, index) => {
     dropbox.addEventListener('dragover', (e) => {
         e.preventDefault();
     })
     dropbox.addEventListener('dragleave', (e) => {
         e.preventDefault();
         dropbox.firstElementChild.classList.remove('dropenter')
+        dropbox.firstElementChild.src = `images/${index+1}.svg`
     })
     dropbox.addEventListener('drop', (e) => {
         e.preventDefault();
-        if(dropbox.childElementCount < 2 ){
-            dropbox.appendChild(document.querySelector('.dragged'))
-            dropbox.firstElementChild.classList.remove('dropenter')
-            console.log(dropbox.childElementCount)
+        const copyData = e.dataTransfer.getData("text/plain");
+        if (copyData === "copy") {
+            const copy = document.querySelector('.dragged').cloneNode(true); // Clone the source element
+            if(dropbox.childElementCount < 2 ){
+                dropbox.appendChild(copy)
+                dropbox.firstElementChild.classList.remove('dropenter')
+                dropbox.firstElementChild.src = `images/${index+1}.svg`
+            }
         }
     })
     dropbox.addEventListener('dragenter', (e) => {
         e.preventDefault();
         if(dropbox.childElementCount < 2 ){  
             dropbox.firstElementChild.classList.add('dropenter')
+            dropbox.firstElementChild.src = `images/${index+1}state.svg`
         }
     })
 })
-const dragEmote = (id) => {
+const dragEmote = (event,id) => {
+    event.dataTransfer.setData("text", "copy")
     document.querySelector(`#emote${id}`).classList.add('dragged')
 }
 const dragEmoteEnd = (id) => {
@@ -196,4 +203,4 @@ const toggleMenu = (state, options) => {
       ladoDiv.style.transform = '';
     }
   }
-//   toggleMenu(true)
+  toggleMenu(true)
