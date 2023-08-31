@@ -175,20 +175,21 @@ dropboxes.forEach((dropbox, index) => {
     dropbox.addEventListener('dragleave', (e) => {
         e.preventDefault();
         dropbox.firstElementChild.classList.remove('dropenter')
-        dropbox.firstElementChild.src = `images/${index+1}.svg`
+        dropbox.firstElementChild.src = `images/variant${index+1}.svg`
     })
     dropbox.addEventListener('drop', (e) => {
         e.preventDefault();
         const copyData = e.dataTransfer.getData("text/plain");
         if (copyData === "copy") {
             const copy = document.querySelector('.dragged').cloneNode(true);
-            if(dropbox.childElementCount < 2 ){
+            if(dropbox.childElementCount < 3 ){
+                dropbox.lastElementChild.classList.remove('dropstate')
                 dropbox.appendChild(copy)
                 selectedEmotes[dropbox.id] = document.querySelector('.dragged').id
                 dropbox.firstElementChild.classList.remove('dropenter')
-                dropbox.firstElementChild.src = `images/${index+1}.svg`
+                dropbox.firstElementChild.src = `images/variant${index+1}.svg`
                 console.log(selectedEmotes)
-            } else if(dropbox.childElementCount > 1){
+            } else if(dropbox.childElementCount > 2){
                 dropbox.removeChild(dropbox.lastElementChild);
                 dropbox.appendChild(copy)
                 selectedEmotes[dropbox.id] = document.querySelector('.dragged').id
@@ -198,8 +199,9 @@ dropboxes.forEach((dropbox, index) => {
     })
     dropbox.addEventListener('dragenter', (e) => {
         e.preventDefault();
-        if(dropbox.childElementCount < 2 ){  
+        if(dropbox.childElementCount < 3 ){  
             dropbox.firstElementChild.classList.add('dropenter')
+            dropbox.lastElementChild.classList.add('dropstate')
             dropbox.firstElementChild.src = `images/${index+1}state.svg`
         }
     })
