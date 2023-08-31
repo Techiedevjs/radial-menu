@@ -259,11 +259,11 @@ body{
     background-color: rgba(65, 204, 177, 0.06);
 }
 .line .emote{
-    width: 7vw;
+    width: 5vw;
     aspect-ratio: 1/1;
     position: absolute;
-    left: 5%;
-    top: 0;
+    left: 10%;
+    top: 1.5vw;
     z-index: -2;
     padding: 0;
     background: none;
@@ -271,9 +271,6 @@ body{
 }
 .line .emote span{
     background-color: transparent !important;
-}
-.outerline.line{
-    background: rgba(65, 204, 177, 0.08);
 }
   .line7 {
     transform: rotate(45deg);
@@ -308,27 +305,27 @@ body{
     transition: .3s ease all;
 }
 .abs1{
-    transform: rotate(-135deg) translate(19%, 6%);
+    transform: rotate(-135deg) translate(18%, 8%);
     width: 10.37vw;
     height: 10.05vw;
 }
 .abs2{
-    transform: rotate(-180deg) translate(0%, 0%);
+    transform: rotate(-180deg) translate(-2%, 1%);
     width: 10.02vw;
     height: 10.35vw;
 }
 .abs3{
-    transform: rotate(-225deg) translate(-8%,19%);
+    transform: rotate(-225deg) translate(-10.2%,19.5%);
     width: 10.05vw;
     height: 10.37vw;
 }
 .abs4{
-    transform: rotate(-270deg) translate(2%, 1%);
+    transform: rotate(-270deg) translate(0%, 1%);
     width: 10.35vw;
     height: 10.02vw;
 }
 .abs5{
-    transform: rotate(-315deg) translate(-19%, -6.5%);
+    transform: rotate(-315deg) translate(-20%, -6.7%);
     width: 10.37vw;
     height: 10.05vw;
 }
@@ -338,33 +335,30 @@ body{
     height: 10.35vw;
 }
 .abs7{
-    transform: rotate(-45deg) translate(8%,-19%);
+    transform: rotate(-45deg) translate(8.5%,-18.5%);
     width: 10.05vw;
     height: 10.37vw;
 }
 .abs8{
-    transform: rotate(-90deg) translate(-2%, -1%);
+    transform: rotate(-90deg) translate(-2%, 0.5%);
     width: 10.35vw;
     height: 10.02vw;
 }
-.dropenter img path{
-    fill: black;
-}
 /* DRAG LEAVES RADIAL  MENU*/
 .line1 .dropenter{
-    transform: rotate(-135deg) translate(21% , 0%);
+    transform: rotate(-135deg) translate(22% , 0%);
 }
 .line2 .dropenter{
     transform: rotate(-180deg) translate(6%, -3%);
 }
 .line3 .dropenter{
-    transform: rotate(-225deg) translate(-3%,21%);
+    transform: rotate(-225deg) translate(-3%,23%);
 }
 .line4 .dropenter{
-    transform: rotate(-270deg) translate(5%, 8%);
+    transform: rotate(-270deg) translate(5%, 11%);
 }
 .line5 .dropenter{
-    transform: rotate(-315deg) translate(-21%, 0%);
+    transform: rotate(-315deg) translate(-22%, 0%);
 }
 .line6 .dropenter{
     transform: rotate(0deg) translate(-6%, 3%);
@@ -375,27 +369,52 @@ body{
 .line8 .dropenter{
     transform: rotate(-90deg) translate(-5%, -8%);
 }
-.line1 .emote{
+.line1 .emote, .variant1{
     transform: rotate(-135deg);
 }
-.line2 .emote{
+.line2 .emote, .variant2{
     transform: rotate(-180deg);
 }
-.line3 .emote{
+.line3 .emote, .variant3{
     transform: rotate(-225deg);
 }
-.line4 .emote{
+.line4 .emote, .variant4{
     transform: rotate(-270deg);
 }
-.line5 .emote{
+.line5 .emote, .variant5{
     transform: rotate(-315deg);
 }
-.line6 .emote{
+.line6 .emote, .variant6{
     transform: rotate(0deg);
 }
-.line7 .emote{
+.line7 .emote, .variant7{
     transform: rotate(-45deg);
 }
-.line8 .emote{
+.line8 .emote, .variant8{
     transform: rotate(-90deg);
+}
+.variant{
+    border-radius: 18px;
+    border: 1.5px solid rgba(255, 255, 255, 0.30);
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.65);
+    width: 1.5vw ;
+    aspect-ratio: 1/1 ;
+    font-size: 0.9vw;
+    color: rgba(255, 255, 255, 0.65);
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.65);
+    font-weight: 600;
+    position: absolute;
+    top: 4vw;
+    left: 11%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dropstate{
+    left: 8%;
+    top: 4vw;
+    background-color:rgba(255, 255, 255, 0.60);
+    color: black;
+    border: 1.5px solid rgba(255, 255, 255, 0.30);
 }
