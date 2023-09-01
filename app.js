@@ -168,15 +168,34 @@ let selectedEmotes = {
     8: ''
 }
 const dropboxes = document.querySelectorAll('.line');
+const dropimages = document.querySelectorAll('.abs');
+dropimages.forEach((dropimage, index) => {
+    dropimage.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    })
+    dropimage.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        dropimage.classList.add('dropenter')
+        dropimage.nextElementSibling.classList.add('dropstate')
+        dropimage.src = `images/variant${index+1}state.svg`
+    })
+    dropimage.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropimage.classList.remove('dropenter')
+        dropimage.nextElementSibling.classList.remove('dropstate')
+        dropimage.src = `images/variant${index+1}.svg`
+    })
+})
 dropboxes.forEach((dropbox, index) => {
-    dropbox.addEventListener('dragover', (e) => {
-        e.preventDefault();
-    })
-    dropbox.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        dropbox.firstElementChild.classList.remove('dropenter')
-        dropbox.firstElementChild.src = `images/variant${index+1}.svg`
-    })
+    // dropbox.addEventListener('dragover', (e) => {
+    //     e.preventDefault();
+    // })
+    // dropbox.addEventListener('dragleave', (e) => {
+    //     e.preventDefault();
+    //     dropbox.firstElementChild.classList.remove('dropenter')
+    //     dropbox.lastElementChild.classList.remove('dropstate')
+    //     dropbox.firstElementChild.src = `images/variant${index+1}.svg`
+    // })
     dropbox.addEventListener('drop', (e) => {
         e.preventDefault();
         const copyData = e.dataTransfer.getData("text/plain");
@@ -197,14 +216,14 @@ dropboxes.forEach((dropbox, index) => {
             }
         }
     })
-    dropbox.addEventListener('dragenter', (e) => {
-        e.preventDefault();
-        if(dropbox.childElementCount < 3 ){  
-            dropbox.firstElementChild.classList.add('dropenter')
-            dropbox.lastElementChild.classList.add('dropstate')
-            dropbox.firstElementChild.src = `images/${index+1}state.svg`
-        }
-    })
+    // dropbox.addEventListener('dragenter', (e) => {
+    //     e.preventDefault();
+    //     if(dropbox.childElementCount < 3 ){  
+    //         dropbox.firstElementChild.classList.add('dropenter')
+    //         dropbox.lastElementChild.classList.add('dropstate')
+    //         dropbox.firstElementChild.src = `images/variant${index+1}state.svg`
+    //     }
+    // })
 })
 const dragEmote = (event,id) => {
     event.dataTransfer.setData("text", "copy")
