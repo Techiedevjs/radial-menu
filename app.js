@@ -169,9 +169,33 @@ let selectedEmotes = {
 }
 const dropboxes = document.querySelectorAll('.line');
 const dropimages = document.querySelectorAll('.abs');
+const variants = document.querySelectorAll('.variant');
+variants.forEach((variant, index) => {
+    variant.addEventListener('drop', (e) => {
+        e.preventDefault()
+    })
+    variant.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        variant.previousElementSibling.classList.add('dropenter')
+        variant.classList.add('dropstate')
+        variant.previousElementSibling.src = `images/variant${index+1}state.svg`
+    })
+    variant.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        variant.previousElementSibling.classList.add('dropenter')
+        variant.classList.add('dropstate')
+        variant.previousElementSibling.src = `images/variant${index+1}state.svg`
+    })
+    variant.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+    })
+})
 dropimages.forEach((dropimage, index) => {
     dropimage.addEventListener('dragover', (e) => {
         e.preventDefault();
+        dropimage.classList.add('dropenter')
+        dropimage.nextElementSibling.classList.add('dropstate')
+        dropimage.src = `images/variant${index+1}state.svg`
     })
     dropimage.addEventListener('dragenter', (e) => {
         e.preventDefault();
@@ -184,6 +208,9 @@ dropimages.forEach((dropimage, index) => {
         dropimage.classList.remove('dropenter')
         dropimage.nextElementSibling.classList.remove('dropstate')
         dropimage.src = `images/variant${index+1}.svg`
+    })
+    dropimage.addEventListener('drop', (e) => {
+        e.preventDefault()
     })
 })
 dropboxes.forEach((dropbox, index) => {
@@ -209,9 +236,12 @@ dropboxes.forEach((dropbox, index) => {
                 dropbox.firstElementChild.src = `images/variant${index+1}.svg`
                 console.log(selectedEmotes)
             } else if(dropbox.childElementCount > 2){
+                dropbox.lastElementChild.classList.remove('dropstate')
                 dropbox.removeChild(dropbox.lastElementChild);
                 dropbox.appendChild(copy)
+                dropbox.firstElementChild.src = `images/variant${index+1}.svg`
                 selectedEmotes[dropbox.id] = document.querySelector('.dragged').id
+                dropbox.firstElementChild.classList.remove('dropenter')
                 console.log(selectedEmotes)
             }
         }
