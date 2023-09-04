@@ -16,8 +16,18 @@ let categories = [
 // PUSH EMOTES
 let emotesData = [
     {
+        id: 1,
+        imageUrl: "images/T_emotes1.svg",
+        type: "dance"
+    },
+    {
+        id: 2,
+        imageUrl: "images/T_emotes2.svg",
+        type: "action"
+    },
+    {
         id: 3,
-        imageUrl: "images/Vector.svg",
+        imageUrl: "images/T_emotes3.svg",
         type: "dance"
     },
     {
@@ -83,11 +93,17 @@ let emotesData = [
     {
         id: 16,
         imageUrl: "images/T_emotes16.svg",
-        type: "action"
-    },{
+        type: "dance"
+    },
+    {
         id: 17,
         imageUrl: "images/T_emotes17.svg",
         type: "action"
+    },
+    {
+        id: 18,
+        imageUrl: "images/T_emotes18.svg",
+        type: "dance"
     },
 ]
 const pressState = (id) => {
@@ -112,7 +128,7 @@ const pushEmotes = (data) => {
     data.map((item) => {
         const {id, imageUrl} = item;
         document.querySelector('.emotes').innerHTML += `
-        <div class='emote emote-image' ondragend="dragEmoteEnd(${id})" ondragstart="dragEmote(${id})" id="emote${id}" draggable="true" onmousedown="pressState(${id})">
+        <div class='emote emote-image' ondragend="dragEmoteEnd(${id})" ondragstart="dragEmote(event,${id})" id="emote${id}" draggable="true" onmousedown="pressState(${id})">
             <img src=${imageUrl} alt="emote" draggable="false"/>
             <span class="pressState"></span>
         </div>
@@ -141,28 +157,91 @@ categories.map((category) => {
     })
 })
 // RADIAL MENU
-let emotes = document.querySelectorAll('.emote-image');
+let selectedEmotes = {
+    1: '',
+    2: '',
+    3: '',
+    4: '',
+    5: '',
+    6: '',
+    7: '',
+    8: ''
+}
 const dropboxes = document.querySelectorAll('.line');
-dropboxes.forEach(dropbox => {
-    dropbox.addEventListener('dragover', (e) => {
+const dropimages = document.querySelectorAll('.abs');
+const variants = document.querySelectorAll('.variant');
+variants.forEach((variant, index) => {
+    variant.addEventListener('drop', (e) => {
+        e.preventDefault()
+    })
+    variant.addEventListener('dragover', (e) => {
         e.preventDefault();
-        dropbox.appendChild(document.querySelector('.dragged'))
+        variant.previousElementSibling.classList.add('dropenter')
+        variant.classList.add('dropstate')
+        variant.previousElementSibling.src = `images/variant${index+1}state.svg`
+    })
+    variant.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        variant.previousElementSibling.classList.add('dropenter')
+        variant.classList.add('dropstate')
+        variant.previousElementSibling.src = `images/variant${index+1}state.svg`
+    })
+    variant.addEventListener('dragleave', (e) => {
+        e.preventDefault();
     })
 })
-// emotes.forEach(emote => {
-//     emote.addEventListener('dragstart', () => {
-//         emote.classList.add('dragged')
-//         console.log(document.querySelector('.dragged'))
-//     })
-// })
-const dragEmote = (id) => {
+dropimages.forEach((dropimage, index) => {
+    dropimage.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropimage.classList.add('dropenter')
+        dropimage.nextElementSibling.classList.add('dropstate')
+        dropimage.src = `images/variant${index+1}state.svg`
+    })
+    dropimage.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        dropimage.classList.add('dropenter')
+        dropimage.nextElementSibling.classList.add('dropstate')
+        dropimage.src = `images/variant${index+1}state.svg`
+    })
+    dropimage.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropimage.classList.remove('dropenter')
+        dropimage.nextElementSibling.classList.remove('dropstate')
+        dropimage.src = `images/variant${index+1}.svg`
+    })
+    dropimage.addEventListener('drop', (e) => {
+        e.preventDefault()
+    })
+})
+dropboxes.forEach((dropbox, index) => {
+    dropbox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const copyData = e.dataTransfer.getData("text/plain");
+        if (copyData === "copy") {
+            const copy = document.querySelector('.dragged').cloneNode(true);
+            if(dropbox.childElementCount < 3 ){
+                dropbox.lastElementChild.classList.remove('dropstate')
+                dropbox.appendChild(copy)
+                selectedEmotes[dropbox.id] = document.querySelector('.dragged').id
+                dropbox.firstElementChild.classList.remove('dropenter')
+                dropbox.firstElementChild.src = `images/variant${index+1}.svg`
+                console.log(selectedEmotes)
+            } else if(dropbox.childElementCount > 2){
+                dropbox.removeChild(dropbox.lastElementChild);
+                dropbox.lastElementChild.classList.remove('dropstate')
+                dropbox.appendChild(copy)
+                dropbox.firstElementChild.src = `images/variant${index+1}.svg`
+                selectedEmotes[dropbox.id] = document.querySelector('.dragged').id
+                dropbox.firstElementChild.classList.remove('dropenter')
+                console.log(selectedEmotes)
+            }
+        }
+    })
+})
+const dragEmote = (event,id) => {
+    event.dataTransfer.setData("text", "copy")
     document.querySelector(`#emote${id}`).classList.add('dragged')
 }
 const dragEmoteEnd = (id) => {
     document.querySelector(`#emote${id}`).classList.remove('dragged')
 }
-// emotes.forEach(emote => {
-//     emote.addEventListener('dragend', () => {
-//         emote.classList.remove('dragged')
-//     })
-// })
