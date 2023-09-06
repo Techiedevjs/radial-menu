@@ -32,8 +32,9 @@
     user-select: none; 
     font-family: 'Outfit', sans-serif;
     box-sizing: border-box;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     color: white;
+    font-style: normal;
 }
 .escape{
     position: absolute;
@@ -62,12 +63,20 @@
     gap: calc(0.5 * var(--gap));
     align-items: center;
 }
+.hide{
+    display: none !important;
+}
+.hidden{
+    pointer-events: none;
+    height: 0;
+    opacity: 0;
+    transition: height 3s ease-in !important;
+}
 body{
     background: url('images/backgroundimage.png');
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
-    --scale: 1;
 }
 .wrapper{
     height: 100vh;
@@ -75,6 +84,7 @@ body{
     backdrop-filter: blur(12px);
     width: 100vw;
     overflow: hidden;
+    transition: width 3s ease;
 }
 .glow{
     padding: var(--padmedium);
@@ -161,6 +171,8 @@ body{
     align-items: initial;
     grid-template-rows: fit-content(100);
     padding-right: var(--padlittle);
+    height: 50vh;
+    overflow-y: scroll;
 }
 .emote{
     cursor: move;
@@ -190,6 +202,9 @@ body{
 .display svg, .display img{
     opacity: 1 !important;
 }
+.selected img{
+    opacity: 0.1 !important;
+}
 .display:hover{
     background-color: rgba(35, 147, 125, 0.5);
 }
@@ -207,6 +222,12 @@ body{
     justify-content: center;
     align-items: center;
     position: relative;
+}
+.radial-menu .hide{
+    display: flex !important;
+}
+.radial-menu .selected img{
+    opacity: 1 !important;
 }
   .outer {
     position: relative;
