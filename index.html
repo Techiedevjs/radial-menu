@@ -27,7 +27,10 @@
                             <p class="category dances">DANCE</p>
                             <p class="category actions">ACTIONS</p>
                         </nav>
-                        <div class="emotename"></div>
+                        <div class="emotedetail flexlittle">
+                            <div class="emotename">very very long name</div>
+                            <span></span>
+                        </div>
                         <section class="emotes"></section>
                     </section>
 
@@ -82,7 +85,22 @@
                     </section>
 
                     <section class="character">
-                        <div><img src="images/character.png" alt=""></div>
+                        <div class="imgbox"><img src="images/character.png" alt=""></div>
+                        <div class="playemote hidden">
+                            <div class="flexlittle">
+                                <img src="images/T_emotes1.svg" alt="" id="emoteimg">
+                                <div>
+                                    <h5 id="emotename">very very long emote name</h5>
+                                    <p id="emotetype">dance</p>
+                                </div>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="pointer play" onclick="playEmote()" width="33" height="33" viewBox="0 0 33 33" fill="none">
+                                <path d="M12.375 23.925L23.925 16.5L12.375 9.075V23.925ZM16.5 33C14.2175 33 12.0725 32.5666 10.065 31.6998C8.0575 30.8341 6.31125 29.6588 4.82625 28.1737C3.34125 26.6888 2.1659 24.9425 1.3002 22.935C0.4334 20.9275 0 18.7825 0 16.5C0 14.2175 0.4334 12.0725 1.3002 10.065C2.1659 8.0575 3.34125 6.31125 4.82625 4.82625C6.31125 3.34125 8.0575 2.16535 10.065 1.29855C12.0725 0.43285 14.2175 0 16.5 0C18.7825 0 20.9275 0.43285 22.935 1.29855C24.9425 2.16535 26.6888 3.34125 28.1737 4.82625C29.6588 6.31125 30.8341 8.0575 31.6998 10.065C32.5666 12.0725 33 14.2175 33 16.5C33 18.7825 32.5666 20.9275 31.6998 22.935C30.8341 24.9425 29.6588 26.6888 28.1737 28.1737C26.6888 29.6588 24.9425 30.8341 22.935 31.6998C20.9275 32.5666 18.7825 33 16.5 33Z" fill="#1F9982"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="pointer pause hide" onclick="pauseEmote()" width="33" height="33" viewBox="0 0 33 33" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.065 31.6998C12.0725 32.5666 14.2175 33 16.5 33C18.7825 33 20.9275 32.5666 22.935 31.6998C24.9425 30.8341 26.6887 29.6588 28.1737 28.1737C29.6588 26.6887 30.8341 24.9425 31.6998 22.935C32.5666 20.9275 33 18.7825 33 16.5C33 14.2175 32.5666 12.0725 31.6998 10.065C30.8341 8.0575 29.6588 6.31125 28.1737 4.82625C26.6887 3.34125 24.9425 2.16535 22.935 1.29855C20.9275 0.43285 18.7825 0 16.5 0C14.2175 0 12.0725 0.43285 10.065 1.29855C8.0575 2.16535 6.31125 3.34125 4.82625 4.82625C3.34125 6.31125 2.1659 8.0575 1.3002 10.065C0.4334 12.0725 0 14.2175 0 16.5C0 18.7825 0.4334 20.9275 1.3002 22.935C2.1659 24.9425 3.34125 26.6887 4.82625 28.1737C6.31125 29.6588 8.0575 30.8341 10.065 31.6998ZM10 10H14V23H10V10ZM19 10H23V23H19V10Z" fill="#1F9982"/>
+                            </svg>
+                        </div>
                     </section>
                 </div>
             </main>
