@@ -140,29 +140,43 @@ let selectedEmotes = {
 //         document.querySelector(`.${selectedEmotes[key]}`).setAttribute('draggable', false);
 //     }
 // })
-const pressState = (id) => {
-    document.querySelector(`.emote${id}`).classList.add('display');
+const pressState = (Id) => {
+    document.querySelector(`.emote${Id}`).classList.add('display');
+    document.querySelector('.playemote').classList.remove('hidden');
+    let data = emotesData.filter(emote => emote.id === Id);
+    const {imageUrl, name, type} = data[0];
+    document.querySelector('#emotename').innerHTML = name;
+    document.querySelector('#emotetype').innerHTML = type;
+    document.querySelector('#emoteimg').src = imageUrl;
     if(currentfilter !== 'all'){
         let data = emotesData.filter((emote) => emote.type === currentfilter);
         data.map((emote) => {
-            if(emote.id !== id){
+            if(emote.id !== Id){
                 document.querySelector(`.emote${emote.id}`).classList.remove('display');
             }
         })
     } else {
         emotesData.map((emote) => {
-            if(emote.id !== id){
+            if(emote.id !== Id){
                 document.querySelector(`.emote${emote.id}`).classList.remove('display');
             }
         })
     }
+}
+const playEmote = () => {
+    document.querySelector('.pause').classList.remove('hide');
+    document.querySelector('.play').classList.add('hide');
+}
+const pauseEmote = () => {
+    document.querySelector('.play').classList.remove('hide');
+    document.querySelector('.pause').classList.add('hide');
 }
 const pushEmotes = (data) => {
     document.querySelector('.emotes').innerHTML = "";
     data.map((item) => {
         const {id, imageUrl, type} = item;
         document.querySelector('.emotes').innerHTML += `
-        <div class='emote emote-image emote${id} ${type === 'dance' ? 'dance' : 'action'}' ondragend="dragEmoteEnd(${id})" ondragstart="dragEmote(event,${id})" draggable="true" onmousedown="pressState(${id})">
+        <div class='emote emote-image emote${id} ${type === 'dance' ? 'dance' : 'action'}' onmouseover="displayNameOnHover(${id})" ondragend="dragEmoteEnd(${id})" ondragstart="dragEmote(event,${id})" draggable="true" onmousedown="pressState(${id})">
             <img src=${imageUrl} alt="emote" draggable="false"/>
             <span class="pressState"></span>
         </div>
@@ -205,6 +219,10 @@ categories.map((category) => {
         })
     })
 })
+const displayNameOnHover = (emoteId) => {
+    let emoteHovered = emotesData.filter(emote => emote.id === emoteId);
+    document.querySelector('.emotename').innerHTML = emoteHovered[0].name
+}
 // RADIAL MENU
 const dropboxes = document.querySelectorAll('.line');
 const dropimages = document.querySelectorAll('.abs');
