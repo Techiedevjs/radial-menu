@@ -272,7 +272,7 @@ dropimages.forEach((dropimage, index) => {
 })
 dropboxes.forEach((dropbox, index) => {
     dropbox.addEventListener('drop', (e) => {
-        console.log(dropbox.childElementCount)
+        console.log(dropbox.childElementCount);
         e.preventDefault();
         const copyData = e.dataTransfer.getData("text/plain");
         if (copyData === "copy") {
