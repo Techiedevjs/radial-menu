@@ -250,9 +250,12 @@ variants.forEach((variant, index) => {
 dropimages.forEach((dropimage, index) => {
     dropimage.addEventListener('dragover', (e) => {
         e.preventDefault();
+        let id  = document.querySelector('.dragged').classList[2]
+        let emoteDragged = emotesData.filter(emote => emote.id == id.slice(5));
+        document.querySelector('.radialemotename').innerHTML = emoteDragged[0].name
         dropimage.classList.add('dropenter')
         dropimage.nextElementSibling.classList.add('dropstate')
-        dropimage.src = `images/variant${index+1}state.svg`
+        dropimage.src = `images/variant${index+1}state.svg`;
     })
     dropimage.addEventListener('dragenter', (e) => {
         e.preventDefault();
@@ -265,6 +268,7 @@ dropimages.forEach((dropimage, index) => {
         dropimage.classList.remove('dropenter')
         dropimage.nextElementSibling.classList.remove('dropstate')
         dropimage.src = `images/variant${index+1}.svg`
+        document.querySelector('.radialemotename').innerHTML = ""
     })
     dropimage.addEventListener('drop', (e) => {
         e.preventDefault()
