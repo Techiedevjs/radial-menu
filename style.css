@@ -158,6 +158,14 @@ body{
 .playemote svg:hover path{
     fill: rgba(97, 255, 224, 1);
 }
+.radialemotename{
+    font-family: 'Barlow', sans-serif;
+    font-size: var(--fontmedium);
+    font-weight: 700;
+    line-height: 126%;
+    letter-spacing: 0.54px;
+    text-transform: capitalize;
+}
 .emotes-section{
     display: flex;
     flex-direction: column;
