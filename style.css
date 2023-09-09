@@ -70,16 +70,27 @@
     display: none !important;
 }
 .hidden{
-    pointer-events: none;
-    height: 0;
     opacity: 0;
-    transition: height 3s ease-in !important;
+    position: absolute;
+    z-index: -100;
+    pointer-events: none;
+    transform: translateY(20vh);
+}
+.hideelem{
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateY(20vh);
+    opacity: 0;
+    /* transition: height 3s ease-in !important; */
 }
 body{
     background: url('images/backgroundimage.png');
     height: 100vh;
+    width: 100vw;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
 }
 .wrapper{
     height: 100vh;
@@ -325,7 +336,7 @@ body{
 }
 .quick-select p{
     font-weight: 400;
-    line-height: 126%; /* 20.16px */
+    line-height: 126%;
     letter-spacing: 0.48px;
     font-size: var(--fontsmall);
     font-family: 'Barlow', sans-serif;
@@ -347,6 +358,7 @@ body{
     padding: 0;
     background: none;
     border: none;
+    cursor: auto;
 }
 .minusindex{
     z-index: -2 !important;
