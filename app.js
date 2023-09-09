@@ -134,12 +134,7 @@ let selectedEmotes = {
     7: '',
     8: ''
 }
-// Object.keys(selectedEmotes).forEach(function(key){
-//     if(selectedEmotes[key]){
-//         // console.log(selectedEmotes[key])
-//         document.querySelector(`.${selectedEmotes[key]}`).setAttribute('draggable', false);
-//     }
-// })
+
 const pressState = (Id) => {
     document.querySelector(`.emote${Id}`).classList.add('display');
     document.querySelector('.playemote').classList.remove('hidden');
@@ -274,33 +269,51 @@ dropimages.forEach((dropimage, index) => {
         e.preventDefault()
     })
 })
+const removeElement = (elem) => {
+    document.querySelectorAll(`.${elem.classList[2]}`).forEach((elem) => {
+        elem.setAttribute('draggable', true)
+        elem.classList.toggle('selected')
+    })
+    elem.remove()
+}
 dropboxes.forEach((dropbox, index) => {
     dropbox.addEventListener('drop', (e) => {
-        console.log(dropbox.childElementCount);
         e.preventDefault();
         const copyData = e.dataTransfer.getData("text/plain");
         if (copyData === "copy") {
             const emoteId = document.querySelector('.dragged').classList[2]
             document.querySelectorAll(`.${emoteId}`).forEach((elem) => {
                 elem.setAttribute('draggable', false)
-                elem.classList.add('selected')
+                elem.classList.toggle('selected')
             })
             const copy = document.querySelector('.dragged').cloneNode(true);
-            console.log(copy)
             if(dropbox.childElementCount < 3 ){
                 dropbox.lastElementChild.classList.remove('dropstate')
                 dropbox.appendChild(copy)
                 selectedEmotes[dropbox.id] = document.querySelector('.dragged').classList[2]
                 dropbox.firstElementChild.classList.remove('dropenter')
                 dropbox.firstElementChild.src = `images/variant${index+1}.svg`
-                console.log(selectedEmotes)
+                dropbox.lastElementChild.setAttribute('draggable', true)
+                dropbox.lastElementChild.classList.add(`remove${emoteId}`);
+                dropbox.lastElementChild.classList.add(`remove`);
+                dropbox.lastElementChild.ondragstart = function(){removeElement(dropbox.lastElementChild)}
+                console.log(selectedEmotes) 
             } else if(dropbox.childElementCount > 2){
+                document.querySelectorAll(`.${dropbox.lastElementChild.classList[2]}`).forEach((elem) => {
+                    elem.setAttribute('draggable', true)
+                    elem.classList.toggle('selected')
+                })
                 dropbox.removeChild(dropbox.lastElementChild);
                 dropbox.lastElementChild.classList.remove('dropstate')
                 dropbox.appendChild(copy)
                 dropbox.firstElementChild.src = `images/variant${index+1}.svg`
                 selectedEmotes[dropbox.id] = document.querySelector('.dragged').classList[2]
                 dropbox.firstElementChild.classList.remove('dropenter')
+                dropbox.lastElementChild.setAttribute('draggable', true)
+                dropbox.lastElementChild.classList.add(`remove${emoteId}`);
+                dropbox.lastElementChild.classList.add(`remove`);
+                console.log(dropbox.lastElementChild)
+                dropbox.lastElementChild.ondragstart = function(){removeElement(dropbox.lastElementChild)}
                 console.log(selectedEmotes)
             }
         }
@@ -309,9 +322,15 @@ dropboxes.forEach((dropbox, index) => {
 const dragEmote = (event,id) => {
     event.dataTransfer.setData("text", "copy")
     document.querySelector(`.emote${id}`).classList.add('dragged')
+    document.querySelectorAll('.line .emote').forEach(elem => {
+        elem.classList.add('minusindex')
+    })
 }
 const dragEmoteEnd = (id) => {
     document.querySelector(`.emote${id}`).classList.remove('dragged')
+    document.querySelectorAll('.line .emote').forEach(elem => {
+        elem.classList.remove('minusindex')
+    })
 }
 // DISPLAY UI
 const toggleDisplay = () =>{
