@@ -290,13 +290,16 @@ dropboxes.forEach((dropbox, index) => {
             if(dropbox.childElementCount < 3 ){
                 dropbox.lastElementChild.classList.remove('dropstate')
                 dropbox.appendChild(copy)
-                selectedEmotes[dropbox.id] = document.querySelector('.dragged').classList[2]
+                selectedEmotes[dropbox.id] = document.querySelector('.radialemotename').innerHTML
                 dropbox.firstElementChild.classList.remove('dropenter')
                 dropbox.firstElementChild.src = `images/variant${index+1}.svg`
-                dropbox.lastElementChild.setAttribute('draggable', true)
                 dropbox.lastElementChild.classList.add(`remove${emoteId}`);
                 dropbox.lastElementChild.classList.add(`remove`);
-                dropbox.lastElementChild.ondragstart = function(){removeElement(dropbox.lastElementChild)}
+                dropbox.lastElementChild.onmousedown = function(event){
+                    if(event.button == 2){ 
+                        removeElement(dropbox.lastElementChild);
+                    }
+                }
                 console.log(selectedEmotes) 
             } else if(dropbox.childElementCount > 2){
                 document.querySelectorAll(`.${dropbox.lastElementChild.classList[2]}`).forEach((elem) => {
@@ -307,13 +310,16 @@ dropboxes.forEach((dropbox, index) => {
                 dropbox.lastElementChild.classList.remove('dropstate')
                 dropbox.appendChild(copy)
                 dropbox.firstElementChild.src = `images/variant${index+1}.svg`
-                selectedEmotes[dropbox.id] = document.querySelector('.dragged').classList[2]
+                selectedEmotes[dropbox.id] = document.querySelector('.radialemotename').innerHTML
                 dropbox.firstElementChild.classList.remove('dropenter')
-                dropbox.lastElementChild.setAttribute('draggable', true)
                 dropbox.lastElementChild.classList.add(`remove${emoteId}`);
                 dropbox.lastElementChild.classList.add(`remove`);
                 console.log(dropbox.lastElementChild)
-                dropbox.lastElementChild.ondragstart = function(){removeElement(dropbox.lastElementChild)}
+                dropbox.lastElementChild.onmousedown = function(event){
+                    if(event.button == 2){ 
+                        removeElement(dropbox.lastElementChild);
+                    }
+                }
                 console.log(selectedEmotes)
             }
         }
@@ -335,6 +341,9 @@ const dragEmoteEnd = (id) => {
 // DISPLAY UI
 const toggleDisplay = () =>{
     document.querySelector('.wrapper').classList.toggle('hidden')
+    setTimeout(() => {
+        document.querySelector('.container').classList.toggle('hideelem')
+    }, 200);
 }
 document.addEventListener('keydown', evt => {
     if (evt.key === 'Home') {
