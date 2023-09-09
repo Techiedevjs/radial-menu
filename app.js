@@ -124,16 +124,7 @@ let emotesData = [
         name: "very very long name emote"
     },
 ]
-let selectedEmotes = {
-    1: '',
-    2: '',
-    3: '',
-    4: '',
-    5: '',
-    6: '',
-    7: '',
-    8: ''
-}
+let selectedEmotes = {}
 
 const pressState = (Id) => {
     document.querySelector(`.emote${Id}`).classList.add('display');
@@ -274,6 +265,7 @@ const removeElement = (elem) => {
         elem.setAttribute('draggable', true)
         elem.classList.toggle('selected')
     })
+    document.querySelector('.radialemotename').innerHTML = "";
     elem.remove()
 }
 dropboxes.forEach((dropbox, index) => {
@@ -341,6 +333,7 @@ const dragEmoteEnd = (id) => {
     })
 }
 document.querySelector('.radial-menu').addEventListener("contextmenu", (event) => { event.preventDefault(); });
+
 // DISPLAY UI
 const toggleDisplay = () =>{
     document.querySelector('.wrapper').classList.toggle('hidden')
