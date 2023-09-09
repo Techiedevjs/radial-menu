@@ -296,6 +296,7 @@ dropboxes.forEach((dropbox, index) => {
                 dropbox.lastElementChild.classList.add(`remove${emoteId}`);
                 dropbox.lastElementChild.classList.add(`remove`);
                 dropbox.lastElementChild.onmousedown = function(event){
+                    event.preventDefault()
                     if(event.button == 2){ 
                         removeElement(dropbox.lastElementChild);
                     }
@@ -316,6 +317,7 @@ dropboxes.forEach((dropbox, index) => {
                 dropbox.lastElementChild.classList.add(`remove`);
                 console.log(dropbox.lastElementChild)
                 dropbox.lastElementChild.onmousedown = function(event){
+                    event.preventDefault()
                     if(event.button == 2){ 
                         removeElement(dropbox.lastElementChild);
                     }
@@ -338,6 +340,7 @@ const dragEmoteEnd = (id) => {
         elem.classList.remove('minusindex')
     })
 }
+document.querySelector('.radial-menu').addEventListener("contextmenu", (event) => { event.preventDefault(); });
 // DISPLAY UI
 const toggleDisplay = () =>{
     document.querySelector('.wrapper').classList.toggle('hidden')
