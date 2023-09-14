@@ -162,7 +162,7 @@ const pushEmotes = (data) => {
     data.map((item) => {
         const {id, imageUrl, type} = item;
         document.querySelector('.emotes').innerHTML += `
-        <div class='emote emote-image emote${id} ${type === 'dance' ? 'dance' : 'action'}' onmouseover="displayNameOnHover(${id})" ondragend="dragEmoteEnd(${id})" ondragstart="dragEmote(event,${id})" draggable="true" onmousedown="pressState(${id})">
+        <div class='emote emote-image emote${id} ${type === 'dance' ? 'dance' : 'action'}' ondblclick="dblClickToAdd('.emote${id}')" onmouseover="displayNameOnHover(${id})" ondragend="dragEmoteEnd(${id})" ondragstart="dragEmote(event,${id})" draggable="true" onmousedown="pressState(${id})">
             <img src=${imageUrl} alt="emote" draggable="false"/>
             <span class="pressState"></span>
         </div>
@@ -174,7 +174,7 @@ let currentfilter = 'all';
 categories.map((category) => {
     const {name, tab} = category
     tab.addEventListener('click', () => {
-        if(name ==="dance"){
+        if(name === "dance"){
             document.querySelectorAll('.action').forEach((elem) => {
                 elem.classList.add('hide')
             })
@@ -263,7 +263,7 @@ dropimages.forEach((dropimage, index) => {
 const removeElement = (elem) => {
     document.querySelectorAll(`.${elem.classList[2]}`).forEach((elem) => {
         elem.setAttribute('draggable', true)
-        elem.classList.toggle('selected')
+        elem.classList.remove('selected')
     })
     document.querySelector('.radialemotename').innerHTML = "";
     elem.remove()
@@ -285,19 +285,17 @@ dropboxes.forEach((dropbox, index) => {
                 selectedEmotes[dropbox.id] = document.querySelector('.radialemotename').innerHTML
                 dropbox.firstElementChild.classList.remove('dropenter')
                 dropbox.firstElementChild.src = `images/variant${index+1}.svg`
-                dropbox.lastElementChild.classList.add(`remove${emoteId}`);
-                dropbox.lastElementChild.classList.add(`remove`);
+                dropbox.lastElementChild.classList.remove('auto');
                 dropbox.lastElementChild.onmousedown = function(event){
                     event.preventDefault()
-                    if(event.button == 2){ 
+                    if(event.button == 2){
                         removeElement(dropbox.lastElementChild);
                     }
                 }
                 console.log(selectedEmotes) 
             } else if(dropbox.childElementCount > 2){
                 document.querySelectorAll(`.${dropbox.lastElementChild.classList[2]}`).forEach((elem) => {
-                    elem.setAttribute('draggable', true)
-                    elem.classList.toggle('selected')
+                    elem.classList.add('selected')
                 })
                 dropbox.removeChild(dropbox.lastElementChild);
                 dropbox.lastElementChild.classList.remove('dropstate')
@@ -305,8 +303,6 @@ dropboxes.forEach((dropbox, index) => {
                 dropbox.firstElementChild.src = `images/variant${index+1}.svg`
                 selectedEmotes[dropbox.id] = document.querySelector('.radialemotename').innerHTML
                 dropbox.firstElementChild.classList.remove('dropenter')
-                dropbox.lastElementChild.classList.add(`remove${emoteId}`);
-                dropbox.lastElementChild.classList.add(`remove`);
                 console.log(dropbox.lastElementChild)
                 dropbox.lastElementChild.onmousedown = function(event){
                     event.preventDefault()
@@ -333,7 +329,32 @@ const dragEmoteEnd = (id) => {
     })
 }
 document.querySelector('.radial-menu').addEventListener("contextmenu", (event) => { event.preventDefault(); });
-
+const dblClickToAdd = (emoteId) => {
+    let elem = document.querySelector(emoteId)
+    let copy = elem.cloneNode(true)
+    if(!elem.classList.contains('selected')){
+        let n = []
+        let emptyVariants = []
+        dropboxes.forEach((element) => { n.push(element) })
+        n.map((i) => {
+            if(i.childElementCount < 3){
+                emptyVariants.push(i)
+            } 
+        })
+        if(emptyVariants.length > 0){
+            emptyVariants[0].appendChild(copy)
+                elem.setAttribute('draggable', false)                                       
+                selectedEmotes[emptyVariants[0].id] = document.querySelector('#emotename').innerHTML
+                emptyVariants[0].lastElementChild.onmousedown = function(event){
+                    event.preventDefault()
+                    if(event.button == 2){ 
+                        removeElement(emptyVariants[0].lastElementChild);
+                    }
+                }  
+                elem.classList.add('selected') 
+        }
+    }
+}
 // DISPLAY UI
 const toggleDisplay = () =>{
     document.querySelector('.wrapper').classList.toggle('hidden')
