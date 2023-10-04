@@ -442,26 +442,50 @@ body{
 .line1 .dropenter{
     transform: rotate(-135deg) translate(22% , 0%);
 }
+.line1:has(.dropenter) .emote{
+    transform: rotate(-135deg) translate(15% , -15%);
+}
 .line2 .dropenter{
     transform: rotate(-180deg) translate(6%, -3%);
+}
+.line2:has(.dropenter) .emote{
+    transform: rotate(-180deg) translate(13%, -10%);
 }
 .line3 .dropenter{
     transform: rotate(-225deg) translate(-3%,23%);
 }
+.line3:has(.dropenter) .emote{
+    transform: rotate(-225deg) translate(10%, 18%);
+}
 .line4 .dropenter{
     transform: rotate(-270deg) translate(5%, 11%);
+}
+.line4:has(.dropenter) .emote{
+    transform: rotate(-270deg) translate(-3%, 25%);
 }
 .line5 .dropenter{
     transform: rotate(-315deg) translate(-22%, 0%);
 }
+.line5:has(.dropenter) .emote{
+    transform: rotate(-315deg) translate(-12%, 10%);
+}
 .line6 .dropenter{
     transform: rotate(0deg) translate(-6%, 3%);
+}
+.line6:has(.dropenter) .emote{
+    transform: rotate(0deg) translate(-10%, 5%);
 }
 .line7 .dropenter{
     transform: rotate(-45deg) translate(3%,-21%);
 }
+.line7:has(.dropenter) .emote{
+    transform: rotate(-45deg) translate(-9%, -15%);
+}
 .line8 .dropenter{
     transform: rotate(-90deg) translate(-5%, -8%);
+}
+.line8:has(.dropenter) .emote{
+    transform: rotate(-90deg) translate(0%, -15%);
 }
 .line1 .emote, .variant1{
     transform: rotate(-135deg);
@@ -507,7 +531,7 @@ body{
 }
 .dropstate{
     left: 8%;
-    top: 4vw;
+    top: 4.5vw;
     background-color:rgba(255, 255, 255, 0.60);
     color: black;
     border: 1.5px solid rgba(255, 255, 255, 0.30);
