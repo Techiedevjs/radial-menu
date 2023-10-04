@@ -148,13 +148,15 @@ const pressState = (Id) => {
         })
     }
 }
-const playEmote = () => {
+const playEmote = (emoteName) => {
     document.querySelector('.pause').classList.remove('hide');
     document.querySelector('.play').classList.add('hide');
+    console.log(`${emoteName} is now playing.`);
 }
 const pauseEmote = () => {
     document.querySelector('.play').classList.remove('hide');
     document.querySelector('.pause').classList.add('hide');
+    console.log(`${emoteName} is now paused.`);
 }
 const pushEmotes = (data) => {
     document.querySelector('.emotes').innerHTML = "";
@@ -291,6 +293,36 @@ $(".abs").each(function(index){
         }
     })
 })
+$(".line").on("click", function() {
+    if($(this).children().length > 2) {
+        let emoteElem = $(this).children().last();
+        let emoteClass = emoteElem.attr("class").split(/\s+/)[2];
+        let emoteClicked = emotesData.filter(emote => emote.id == Number(emoteClass.slice(5)));
+        document.querySelector('#emotename').innerHTML = emoteClicked[0].name;
+        document.querySelector('#emotetype').innerHTML = emoteClicked[0].type;
+        document.querySelector('#emoteimg').src = emoteClicked[0].imageUrl;
+        playEmote(emoteClicked[0].name);
+        console.log(emoteClicked[0].name);
+    }
+});
+$(".line").on("mouseover", function() {
+    let absElement = $(this).find('.abs');
+    if($(this).children().length > 2) {
+        absElement.attr('src', `images/variant${$(this).index()+1}state.svg`);
+        absElement.addClass('dropenter');
+        absElement.next().addClass('dropstate');
+        let emoteElem = $(this).children().last();
+        let emoteClass = emoteElem.attr("class").split(/\s+/)[2];
+        let emoteHovered = emotesData.filter(emote => emote.id == Number(emoteClass.slice(5)));
+        $('.radialemotename').text(emoteHovered[0].name);
+    }
+}).on("mouseout", function() {
+    let absElement = $(this).find('.abs');
+    absElement.attr('src', `images/variant${$(this).index()+1}.svg`);
+    absElement.removeClass('dropenter');
+    absElement.next().removeClass('dropstate');
+    $('.radialemotename').text("");
+});
 document.querySelector('.radial-menu').addEventListener("contextmenu", (event) => { event.preventDefault(); });
 const dblClickToAdd = (emoteId) => {
     let elem = document.querySelector(emoteId)
@@ -312,7 +344,6 @@ const dblClickToAdd = (emoteId) => {
             selectedEmotes[emptyVariants[0].id] = document.querySelector('#emotename').innerHTML
             emptyVariants[0].lastElementChild.onmousedown = function(event){
                 event.preventDefault()
-                console.log('working')
                 if(event.button == 2){ 
                     removeElement(emptyVariants[0].lastElementChild);
                 }
