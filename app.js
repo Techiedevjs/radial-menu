@@ -215,6 +215,7 @@ const dropboxes = document.querySelectorAll('.line');
 let emoteDropped = false;
 const removeElement = (elem) => {
     let emoteClass = elem.classList[2];
+    console.log(emoteClass)
     let originalElem = document.querySelector(`.${emoteClass}`);
     if (originalElem) {
         $(originalElem).draggable("enable");
@@ -285,9 +286,21 @@ $(".abs").each(function(index){
                 $('.dragged').addClass('selected');
                 $('.dragged').draggable("disable");
             }
-            $(clonedElement).on('contextmenu', function(e) {
-                e.preventDefault();  
-                removeElement(this); 
+            // console.log(clonedElement.parent())
+            clonedElement.parent().mousedown(function (e) { 
+                e.preventDefault();
+                if(e.button == 2){
+                    if(clonedElement.parent().children().length > 2){
+                        let id  = clonedElement.attr("class").split(/\s+/)[2]
+                        let originalElem = document.querySelector(`.${id}`);
+                        if (originalElem) {
+                            $(originalElem).draggable("enable");
+                            originalElem.classList.remove('selected');
+                            document.querySelector('.radialemotename').innerHTML = "";
+                            clonedElement.remove()
+                        }
+                    }
+                }
             });
             emoteDropped = true;
         }
@@ -338,14 +351,19 @@ const dblClickToAdd = (emoteId) => {
         })
         if(emptyVariants.length > 0){
             emptyVariants[0].appendChild(copy)
+            console.log(emptyVariants[0].id)
+            console.log(document.querySelector('#emotename').innerHTML)
+            console.log(emoteId);
             $(elem).addClass('selected') 
             let id  = $(elem).attr("class").split(/\s+/)[2]
             $(elem).draggable('disable')                                       
             selectedEmotes[emptyVariants[0].id] = document.querySelector('#emotename').innerHTML
-            emptyVariants[0].lastElementChild.onmousedown = function(event){
+            emptyVariants[0].onmousedown = function(event){
                 event.preventDefault()
                 if(event.button == 2){ 
-                    removeElement(emptyVariants[0].lastElementChild);
+                    if(emptyVariants[0].children.length > 2){
+                        removeElement(emptyVariants[0].lastElementChild);
+                    }
                 }
             }  
         }
