@@ -286,7 +286,6 @@ $(".abs").each(function(index){
                 $('.dragged').addClass('selected');
                 $('.dragged').draggable("disable");
             }
-            // console.log(clonedElement.parent())
             clonedElement.parent().mousedown(function (e) { 
                 e.preventDefault();
                 if(e.button == 2){
