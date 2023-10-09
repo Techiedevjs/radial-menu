@@ -353,7 +353,6 @@ const dblClickToAdd = (emoteId) => {
             console.log(emptyVariants[0].id)
             console.log(document.querySelector('#emotename').innerHTML)
             console.log(emoteId);
-            // HE CAN PUT IT HERE OR ANYWHERE AROUND YEAH
             $(elem).addClass('selected') 
             let id  = $(elem).attr("class").split(/\s+/)[2]
             $(elem).draggable('disable')                                       
