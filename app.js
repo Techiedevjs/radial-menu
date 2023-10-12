@@ -215,7 +215,6 @@ const dropboxes = document.querySelectorAll('.line');
 let emoteDropped = false;
 const removeElement = (elem) => {
     let emoteClass = elem.classList[2];
-    console.log(emoteClass)
     let originalElem = document.querySelector(`.${emoteClass}`);
     if (originalElem) {
         $(originalElem).draggable("enable");
@@ -246,22 +245,50 @@ $(function(){
         }
     })
 })
+let currentSlot;
 $(".abs").each(function(index){
     var DI = $(this);
     DI.droppable({
         accept: ".emote",
         over: function(event, ui){
+            currentSlot = DI
+            event.stopPropagation();
             DI.attr('src',`images/variant${index+1}state.svg`);
             DI.addClass('dropenter')
             DI.next().addClass('dropstate')
             let id  = $('.dragged').attr("class").split(/\s+/)
             let emoteDragged = emotesData.filter(emote => emote.id == Number(id[2].slice(5)));
             $('.radialemotename').text(emoteDragged[0].name)
+            DI.off("mouseover")
+            DI.off("mouseout")
         },
         out: function(event, ui){
             DI.attr('src',`images/variant${index+1}.svg`);
             DI.removeClass('dropenter');
             DI.next().removeClass('dropstate');
+            DI.on("mouseover", function(e) {
+                let absElement = $(this);
+                if(absElement.parent().children().length > 2) {
+                    absElement.attr('src', `images/variant${$(this).attr("class").split(/\s+/)[1].slice(3)}state.svg`);
+                    absElement.addClass('dropenter');
+                    absElement.next().addClass('dropstate');
+                    let emoteElem = $(this).parent().children().last();
+                    let emoteClass = emoteElem.attr("class").split(/\s+/)[2];
+                    let emoteHovered = emotesData.filter(emote => emote.id == Number(emoteClass.slice(5)));
+                    $('.radialemotename').text(emoteHovered[0].name);
+                }
+            })
+            DI.on("mouseout", function(e) {
+                let absElement = $(this);
+                absElement.attr('src', `images/variant${$(this).attr("class").split(/\s+/)[1].slice(3)}.svg`);
+                absElement.removeClass('dropenter');
+                absElement.next().removeClass('dropstate');
+                if(absElement.parent().children().length > 2){
+                    $('.radialemotename').text("");
+                }
+            });
+        },
+        stop: function(event, ui){
             $('.radialemotename').text("");
         },
         drop: function(event, ui){
@@ -286,6 +313,27 @@ $(".abs").each(function(index){
                 $('.dragged').addClass('selected');
                 $('.dragged').draggable("disable");
             }
+            DI.on("mouseover", function(e) {
+                let absElement = $(this);
+                if(absElement.parent().children().length > 2) {
+                    absElement.attr('src', `images/variant${$(this).attr("class").split(/\s+/)[1].slice(3)}state.svg`);
+                    absElement.addClass('dropenter');
+                    absElement.next().addClass('dropstate');
+                    let emoteElem = $(this).parent().children().last();
+                    let emoteClass = emoteElem.attr("class").split(/\s+/)[2];
+                    let emoteHovered = emotesData.filter(emote => emote.id == Number(emoteClass.slice(5)));
+                    $('.radialemotename').text(emoteHovered[0].name);
+                }
+            })
+            DI.on("mouseout", function(e) {
+                let absElement = $(this);
+                absElement.attr('src', `images/variant${$(this).attr("class").split(/\s+/)[1].slice(3)}.svg`);
+                absElement.removeClass('dropenter');
+                absElement.next().removeClass('dropstate');
+                if(absElement.parent().children().length > 2){
+                    $('.radialemotename').text("");
+                }
+            });
             clonedElement.parent().mousedown(function (e) { 
                 e.preventDefault();
                 if(e.button == 2){
@@ -305,7 +353,7 @@ $(".abs").each(function(index){
         }
     })
 })
-$(".line").on("click", function() {
+$(".line").on("click", function(e) {
     if($(this).children().length > 2) {
         let emoteElem = $(this).children().last();
         let emoteClass = emoteElem.attr("class").split(/\s+/)[2];
@@ -314,26 +362,29 @@ $(".line").on("click", function() {
         document.querySelector('#emotetype').innerHTML = emoteClicked[0].type;
         document.querySelector('#emoteimg').src = emoteClicked[0].imageUrl;
         playEmote(emoteClicked[0].name);
-        console.log(emoteClicked[0].name);
     }
 });
-$(".line").on("mouseover", function() {
-    let absElement = $(this).find('.abs');
-    if($(this).children().length > 2) {
-        absElement.attr('src', `images/variant${$(this).index()+1}state.svg`);
+$(".abs").on("mouseover", function(e) {
+    e.preventDefault();
+    let absElement = $(this);
+    if(absElement.parent().children().length > 2) {
+        absElement.attr('src', `images/variant${$(this).attr("class").split(/\s+/)[1].slice(3)}state.svg`);
         absElement.addClass('dropenter');
         absElement.next().addClass('dropstate');
-        let emoteElem = $(this).children().last();
+        let emoteElem = $(this).parent().children().last();
         let emoteClass = emoteElem.attr("class").split(/\s+/)[2];
         let emoteHovered = emotesData.filter(emote => emote.id == Number(emoteClass.slice(5)));
         $('.radialemotename').text(emoteHovered[0].name);
     }
-}).on("mouseout", function() {
-    let absElement = $(this).find('.abs');
-    absElement.attr('src', `images/variant${$(this).index()+1}.svg`);
+})
+$(".abs").on("mouseout", function(e) {
+    let absElement = $(this);
+    absElement.attr('src', `images/variant${$(this).attr("class").split(/\s+/)[1].slice(3)}.svg`);
     absElement.removeClass('dropenter');
     absElement.next().removeClass('dropstate');
-    $('.radialemotename').text("");
+    if(absElement.parent().children().length > 2){
+        $('.radialemotename').text("");
+    }
 });
 document.querySelector('.radial-menu').addEventListener("contextmenu", (event) => { event.preventDefault(); });
 const dblClickToAdd = (emoteId) => {
@@ -350,9 +401,10 @@ const dblClickToAdd = (emoteId) => {
         })
         if(emptyVariants.length > 0){
             emptyVariants[0].appendChild(copy)
-            console.log(emptyVariants[0].id)
-            console.log(document.querySelector('#emotename').innerHTML)
-            console.log(emoteId);
+            // console.log(emptyVariants[0].id)
+            // console.log(document.querySelector('#emotename').innerHTML)
+            // console.log(emoteId);
+            // HE CAN PUT IT HERE OR ANYWHERE AROUND YEAH
             $(elem).addClass('selected') 
             let id  = $(elem).attr("class").split(/\s+/)[2]
             $(elem).draggable('disable')                                       
