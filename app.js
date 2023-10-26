@@ -229,9 +229,9 @@ $(function(){
         revert:"invalid", 
         containment:"document", 
         helper: "clone",
+        // tolerance: "pointer",
         start: function(){
             $(this).addClass('dragged')
-            console.log($('.dragged'))
             emoteDropped = false;
         },
         stop: function(){
@@ -245,22 +245,32 @@ $(function(){
         }
     })
 })
-let currentSlot;
+let allslots = [ 0, 1,2,3,4,5,6,7 ]
+let currentSlotHovered;
 $(".abs").each(function(index){
     var DI = $(this);
     DI.droppable({
         accept: ".emote",
+        // tolerance: 'pointer',
         over: function(event, ui){
-            currentSlot = DI
-            event.stopPropagation();
+            console.log(DI.attr("class"))
+            currentSlotHovered = DI
             DI.attr('src',`images/variant${index+1}state.svg`);
             DI.addClass('dropenter')
             DI.next().addClass('dropstate')
             let id  = $('.dragged').attr("class").split(/\s+/)
             let emoteDragged = emotesData.filter(emote => emote.id == Number(id[2].slice(5)));
             $('.radialemotename').text(emoteDragged[0].name)
+            let restslot = allslots.filter((i) => i !== index)
+            restslot.map((ind) => {
+                let slot = $(`.abs${ind + 1}`)
+                slot.attr('src', `images/variant${ind + 1}.svg`)
+                slot.removeClass('dropenter');
+                slot.next().removeClass('dropstate');
+            })
             DI.off("mouseover")
             DI.off("mouseout")
+            event.preventDefault()
         },
         out: function(event, ui){
             DI.attr('src',`images/variant${index+1}.svg`);
@@ -404,7 +414,6 @@ const dblClickToAdd = (emoteId) => {
             // console.log(emptyVariants[0].id)
             // console.log(document.querySelector('#emotename').innerHTML)
             // console.log(emoteId);
-            // HE CAN PUT IT HERE OR ANYWHERE AROUND YEAH
             $(elem).addClass('selected') 
             let id  = $(elem).attr("class").split(/\s+/)[2]
             $(elem).draggable('disable')                                       
